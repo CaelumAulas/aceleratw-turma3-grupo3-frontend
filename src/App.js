@@ -5,12 +5,16 @@ import {
   Route
 } from "react-router-dom";
 
+import { Home } from './pages/Home';
 import { CreateUser } from './pages/CreateUser';
 
 function App() {
   return (
     <Router>
       <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
         <Route path="/cadastro-usuario">
           <CreateUser />
         </Route>
@@ -19,4 +23,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
