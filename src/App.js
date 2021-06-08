@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import { Login } from './pages/Login';
+import { CreateUser } from './pages/CreateUser';
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
       <Switch>
         <Route exact path="/sign-in">
           <Login />
+        </Route>
+        <Route path="/cadastro-usuario">
+          <CreateUser />
         </Route>
       </Switch>
     </Router>
