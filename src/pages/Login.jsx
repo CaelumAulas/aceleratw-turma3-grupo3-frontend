@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import {
-    Container,
     Grid,
     Typography,
     TextField,
@@ -19,50 +18,47 @@ export function Login() {
     }
 
     return (
-        <Container maxWidth="xl">
-            <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                justify="center"
-                style={{ minHeight: '100vh' }}
-            >
-                <Grid item xl={3}>
-                    <Typography variant="h5" component="h1" align="center">
-                        Login
+        <Grid
+            container
+            direction="column"
+            alignItems="center"
+            justify="center"
+        >
+
+            <Grid item xl={3}>
+                <Typography variant="h5" component="h1" align="center">
+                    Login
                     </Typography>
-                    <form onSubmit={handleSubmit}>
-                        <TextField
-                            type="text"
-                            id="username"
-                            label="Usuário"
-                            variant="outlined"
-                            margin="normal"
-                            onChange={(event) => setUsername(event.target.value)}
-                            fullWidth
-                        />
-                        <TextField
-                            type="password"
-                            id="password"
-                            label="Senha"
-                            variant="outlined"
-                            margin="normal"
-                            onChange={(event) => setPassword(event.target.value)}
-                            fullWidth
-                        />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            size="large"
-                            fullWidth
-                        >
-                            Logar
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        type="text"
+                        id="username"
+                        label="Usuário"
+                        variant="outlined"
+                        margin="normal"
+                        onChange={(event) => setUsername(event.target.value)}
+                        fullWidth
+                    />
+                    <TextField
+                        type="password"
+                        id="password"
+                        label="Senha"
+                        variant="outlined"
+                        margin="normal"
+                        onChange={(event) => setPassword(event.target.value)}
+                        fullWidth
+                    />
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        fullWidth
+                    >
+                        Entrar
                         </Button>
-                    </form>
-                </Grid>
+                </form>
             </Grid>
-        </Container>
+        </Grid>
     )
 }
