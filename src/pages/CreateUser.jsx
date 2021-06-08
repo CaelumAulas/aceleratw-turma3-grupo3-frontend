@@ -7,23 +7,12 @@ import {
     Button,
     FormHelperText
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        '& > *': {
-            margin: theme.spacing(1),
-        },
-    },
-}));
 
 export function CreateUser() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
     const [helperText, setHelperText] = useState();
-
-    const classes = useStyles();
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -49,7 +38,7 @@ export function CreateUser() {
                 <Typography variant="h5" component="h1" align="center">
                     Cadastro de Usuário
                     </Typography>
-                <form onSubmit={handleSubmit} className={classes.root}>
+                <form onSubmit={handleSubmit}>
                     <TextField
                         type="text"
                         id="username"
@@ -91,6 +80,7 @@ export function CreateUser() {
                     <Button
                         variant="contained"
                         size="large"
+                        style={{ marginLeft: 10 }}
                     >
                         cancelar
                     </Button>
