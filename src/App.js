@@ -5,15 +5,15 @@ import {
   Route
 } from "react-router-dom";
 
-import { Home } from './pages/Home';
+import { Login } from './pages/Login';
 import { CreateUser } from './pages/CreateUser';
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
-          <Home />
+        <Route exact path="/sign-in">
+          <Login />
         </Route>
         <Route path="/cadastro-usuario">
           <CreateUser />
