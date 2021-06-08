@@ -4,7 +4,8 @@ import {
     Grid,
     Typography,
     TextField,
-    Button
+    Button,
+    FormHelperText
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -20,11 +21,17 @@ export function CreateUser() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
+    const [helperText, setHelperText] = useState();
 
     const classes = useStyles();
 
     function handleSubmit(event) {
         event.preventDefault();
+
+        if (password !== confirmPassword) {
+            setHelperText('senhas não conferem.');
+        }
+
         console.log(username);
         console.log(password);
         console.log(confirmPassword);
@@ -58,6 +65,7 @@ export function CreateUser() {
                         label="Senha"
                         variant="outlined"
                         margin="normal"
+                        onClick={() => setHelperText(null)}
                         onChange={(event) => setPassword(event.target.value)}
                         fullWidth
                     />
@@ -67,9 +75,11 @@ export function CreateUser() {
                         label="Confirmação de Senha"
                         variant="outlined"
                         margin="normal"
+                        onClick={() => setHelperText(null)}
                         onChange={(event) => setConfirmPassword(event.target.value)}
                         fullWidth
                     />
+                    <FormHelperText style={{ color: 'red' }}>{helperText}</FormHelperText>
                     <Button
                         type="submit"
                         variant="contained"
