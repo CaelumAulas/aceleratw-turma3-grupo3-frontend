@@ -6,7 +6,8 @@ import {
 } from "react-router-dom";
 
 import { Login } from './pages/Login';
-import { CreateUser } from './pages/CreateUser';
+import { UserForm } from './pages/UserForm';
+import { VehicleForm } from './pages/VehicleForm';
 
 function App() {
   return (
@@ -16,7 +17,10 @@ function App() {
           <Login />
         </Route>
         <Route path="/cadastro-usuario">
-          <CreateUser />
+          <UserForm />
+        </Route>
+        <Route path="/cadastro-veiculo">
+          <VehicleForm />
         </Route>
       </Switch>
     </Router>
