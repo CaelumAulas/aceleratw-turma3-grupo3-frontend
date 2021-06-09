@@ -8,6 +8,7 @@ import {
 import { Login } from './pages/Login';
 import { UserForm } from './pages/UserForm';
 import { VehicleForm } from './pages/VehicleForm';
+import { VehicleList } from './pages/VehicleList';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
         </Route>
         <Route path="/cadastro-veiculo">
           <VehicleForm />
+        </Route>
+        <Route path="/lista-veiculos">
+          <VehicleList />
         </Route>
       </Switch>
     </Router>
