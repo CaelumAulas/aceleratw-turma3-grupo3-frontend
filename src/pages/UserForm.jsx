@@ -8,7 +8,7 @@ import {
     FormHelperText
 } from '@material-ui/core';
 
-export function CreateUser() {
+export function UserForm() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
@@ -37,7 +37,7 @@ export function CreateUser() {
             <Grid item xl={3}>
                 <Typography variant="h5" component="h1" align="center">
                     Cadastro de Usuário
-                    </Typography>
+                </Typography>
                 <form onSubmit={handleSubmit}>
                     <TextField
                         type="text"

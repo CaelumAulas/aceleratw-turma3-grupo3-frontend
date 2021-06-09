@@ -13,6 +13,7 @@ export function Login() {
 
     function handleSubmit(event) {
         event.preventDefault();
+
         console.log(username);
         console.log(password);
     }
