@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
 import {
-    Grid,
-    Typography,
     TextField,
-    Button
+    Button,
+    Container,
+    Grid,
+    Typography
 } from '@material-ui/core';
 
 export function Login() {
@@ -19,17 +20,18 @@ export function Login() {
     }
 
     return (
-        <Grid
-            container
-            direction="column"
-            alignItems="center"
-            justify="center"
-        >
-
-            <Grid item xl={3}>
-                <Typography variant="h5" component="h1" align="center">
-                    Login
-                    </Typography>
+        <Container>
+            <Grid
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                justify="center"
+                style={{ minHeight: '40vh' }}
+            >
+                <Typography variant="h5" component="h1" align="center" style={{ padding: 30 }}>
+                    Carango Bom
+                </Typography>
                 <form onSubmit={handleSubmit}>
                     <TextField
                         type="text"
@@ -57,9 +59,9 @@ export function Login() {
                         fullWidth
                     >
                         Entrar
-                        </Button>
+                </Button>
                 </form>
             </Grid>
-        </Grid>
+        </Container>
     )
 }

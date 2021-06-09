@@ -5,6 +5,7 @@ import {
   Route
 } from "react-router-dom";
 
+import { ToolBar } from './components/ToolBar';
 import { Login } from './pages/Login';
 import { UserForm } from './pages/UserForm';
 import { VehicleForm } from './pages/VehicleForm';
@@ -13,8 +14,9 @@ import { BrandForm } from './pages/BrandForm';
 function App() {
   return (
     <Router>
+      <ToolBar />
       <Switch>
-        <Route exact path="/sign-in">
+        <Route path="/sign-in">
           <Login />
         </Route>
         <Route path="/cadastro-usuario">
