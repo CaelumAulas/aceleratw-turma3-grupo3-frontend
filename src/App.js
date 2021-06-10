@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 
 import { UserContext, UserProvider } from './contexts/user';
@@ -14,6 +15,7 @@ import { UserForm } from './pages/UserForm';
 import { VehicleForm } from './pages/VehicleForm';
 import { VehicleList } from './pages/VehicleList';
 import { BrandForm } from './pages/BrandForm';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 function App() {
   const { userIsLogged } = useContext(UserContext);
@@ -27,8 +29,8 @@ function App() {
             <Route exact path="/">
               {
                 userIsLogged
-                  ? <Dashboard />
-                  : <Login />
+                  ? <Redirect to="/dashboard" />
+                  : <Redirect to="/sign-in" />
               }
             </Route>
             <Route path="/sign-in">
@@ -48,6 +50,9 @@ function App() {
             </Route>
             <Route path="/cadastro-marca">
               <BrandForm />
+            </Route>
+            <Route path="/**">
+              <NotFoundPage />
             </Route>
           </Switch>
         </Router>

@@ -26,12 +26,17 @@ export function ToolBar() {
     return (
         <AppBar position="static" style={{ marginBottom: 30 }}>
             <Toolbar style={{ flex: 1, justifyContent: 'space-between' }}>
-                <Typography variant="h6">
-                    Carango Bom
-                </Typography>
-                <Typography variant="h6">
-                    {title}
-                </Typography>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Typography variant="h6">
+                        Carango Bom
+                    </Typography>
+                    <Typography variant="h7" style={{ marginInline: 30 }}>
+                        &gt;
+                    </Typography>
+                    <Typography variant="h8">
+                        {title}
+                    </Typography>
+                </div>
                 <div>
                     {userIsLogged &&
                         <>

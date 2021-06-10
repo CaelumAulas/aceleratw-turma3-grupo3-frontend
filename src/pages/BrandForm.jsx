@@ -23,7 +23,7 @@ export function BrandForm() {
     }, [handleChangeTitle])
 
     return (
-        <Container>
+        <Container maxWidth='sm'>
             <form onSubmit={handleSubmit}>
                 <TextField
                     type="text"
@@ -33,6 +33,7 @@ export function BrandForm() {
                     margin="normal"
                     onChange={(event) => setBrandName(event.target.value)}
                     fullWidth
+                    required
                 />
                 <ButtonForm />
             </form>

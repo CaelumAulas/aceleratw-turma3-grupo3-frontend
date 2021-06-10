@@ -20,7 +20,7 @@ export function BrandSelect({ value, changeValue }) {
     }, [])
 
     return (
-        <FormControl variant="outlined" style={{ marginTop: 30, minWidth: 200 }}>
+        <FormControl variant="outlined" style={{ minWidth: 200 }}>
             <InputLabel htmlFor="outlined-brand-native-simple">Marca</InputLabel>
             <Select
                 native

@@ -33,7 +33,7 @@ export function UserForm() {
     }, [handleChangeTitle])
 
     return (
-        <Container>
+        <Container maxWidth='sm'>
             <form onSubmit={handleSubmit}>
                 <TextField
                     type="text"
@@ -43,6 +43,7 @@ export function UserForm() {
                     margin="normal"
                     onChange={(event) => setUsername(event.target.value)}
                     fullWidth
+                    required
                 />
                 <TextField
                     type="password"
@@ -53,6 +54,7 @@ export function UserForm() {
                     onClick={() => setHelperText(null)}
                     onChange={(event) => setPassword(event.target.value)}
                     fullWidth
+                    required
                 />
                 <TextField
                     type="password"
@@ -63,6 +65,7 @@ export function UserForm() {
                     onClick={() => setHelperText(null)}
                     onChange={(event) => setConfirmPassword(event.target.value)}
                     fullWidth
+                    required
                 />
                 <FormHelperText style={{ color: 'red' }}>{helperText}</FormHelperText>
                 <ButtonForm />
