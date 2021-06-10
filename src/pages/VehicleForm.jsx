@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
     Container,
     TextField
@@ -7,12 +7,15 @@ import {
 import { BrandSelect } from '../components/BrandSelect';
 import { ButtonForm } from '../components/ButtonForm';
 
+import { MenuContext } from '../contexts/menu';
 
 export function VehicleForm() {
     const [brand, setBrand] = useState();
     const [model, setModel] = useState();
     const [year, setYear] = useState();
     const [price, setPrice] = useState();
+
+    const { handleChangeTitle } = useContext(MenuContext);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -22,6 +25,10 @@ export function VehicleForm() {
         console.log(year);
         console.log(price);
     }
+
+    useEffect(() => {
+        handleChangeTitle("Cadastro de Veículos");
+    }, [])
 
     return (
         <Container>

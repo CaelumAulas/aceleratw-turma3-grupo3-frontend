@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
     TextField,
     Container
 } from '@material-ui/core';
 
 import { ButtonForm } from '../components/ButtonForm';
+import { MenuContext } from '../contexts/menu';
 
 export function BrandForm() {
     const [brandName, setBrandName] = useState();
+
+    const { handleChangeTitle } = useContext(MenuContext);
 
     function handleSubmit(event) {
         event.preventDefault();
 
         console.log(brandName);
     }
+
+    useEffect(() => {
+        handleChangeTitle("Cadastrar de Marca");
+    }, [handleChangeTitle])
 
     return (
         <Container>

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React, { useContext, useEffect, useState } from 'react';
 import {
     TextField,
     Button,
@@ -7,17 +6,32 @@ import {
     Grid,
     Typography
 } from '@material-ui/core';
+import { useHistory } from 'react-router';
+
+import { UserContext } from '../contexts/user';
+import { MenuContext } from '../contexts/menu';
 
 export function Login() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+
+    const { handleLogin } = useContext(UserContext);
+    const { handleChangeTitle } = useContext(MenuContext);
+    const history = useHistory();
 
     function handleSubmit(event) {
         event.preventDefault();
 
         console.log(username);
         console.log(password);
+
+        history.push('/dashboard');
+        handleLogin();
     }
+
+    useEffect(() => {
+        handleChangeTitle("Login");
+    }, [handleChangeTitle])
 
     return (
         <Container>
@@ -56,6 +70,7 @@ export function Login() {
                         variant="contained"
                         color="primary"
                         size="large"
+                        style={{ marginTop: 20 }}
                         fullWidth
                     >
                         Entrar

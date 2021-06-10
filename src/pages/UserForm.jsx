@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import {
     Container,
@@ -6,12 +6,15 @@ import {
     FormHelperText
 } from '@material-ui/core';
 import { ButtonForm } from '../components/ButtonForm';
+import { MenuContext } from '../contexts/menu';
 
 export function UserForm() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
     const [helperText, setHelperText] = useState();
+
+    const { handleChangeTitle } = useContext(MenuContext);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -24,6 +27,10 @@ export function UserForm() {
         console.log(password);
         console.log(confirmPassword);
     }
+
+    useEffect(() => {
+        handleChangeTitle("Cadastro de Usuários");
+    }, [handleChangeTitle])
 
     return (
         <Container>
