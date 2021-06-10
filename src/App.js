@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 
 import { UserContext, UserProvider } from './contexts/user';
@@ -27,8 +28,8 @@ function App() {
             <Route exact path="/">
               {
                 userIsLogged
-                  ? <Dashboard />
-                  : <Login />
+                  ? <Redirect to="/dashboard" />
+                  : <Redirect to="/sign-in" />
               }
             </Route>
             <Route path="/sign-in">
@@ -48,6 +49,9 @@ function App() {
             </Route>
             <Route path="/cadastro-marca">
               <BrandForm />
+            </Route>
+            <Route path="/**">
+              <Redirect to="/sign-in" />
             </Route>
           </Switch>
         </Router>

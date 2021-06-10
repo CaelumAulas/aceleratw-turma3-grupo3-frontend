@@ -28,10 +28,10 @@ export function VehicleForm() {
 
     useEffect(() => {
         handleChangeTitle("Cadastro de Veículos");
-    }, [])
+    }, [handleChangeTitle])
 
     return (
-        <Container>
+        <Container maxWidth='sm'>
             <form onSubmit={handleSubmit}>
                 <BrandSelect value={brand} changeValue={setBrand} />
                 <TextField
@@ -41,24 +41,27 @@ export function VehicleForm() {
                     variant="outlined"
                     margin="normal"
                     onChange={(event) => setModel(event.target.value)}
+                    required
                     fullWidth
                 />
                 <TextField
-                    type="text"
+                    type="number"
                     id="year"
                     label="Ano"
                     variant="outlined"
                     margin="normal"
                     onChange={(event) => setYear(event.target.value)}
+                    required
                     fullWidth
                 />
                 <TextField
-                    type="text"
+                    type="number"
                     id="price"
                     label="Valor"
                     variant="outlined"
                     margin="normal"
                     onChange={(event) => setPrice(event.target.value)}
+                    required
                     fullWidth
                 />
                 <ButtonForm />
