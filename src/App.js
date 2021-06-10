@@ -15,6 +15,7 @@ import { UserForm } from './pages/UserForm';
 import { VehicleForm } from './pages/VehicleForm';
 import { VehicleList } from './pages/VehicleList';
 import { BrandForm } from './pages/BrandForm';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 function App() {
   const { userIsLogged } = useContext(UserContext);
@@ -51,7 +52,7 @@ function App() {
               <BrandForm />
             </Route>
             <Route path="/**">
-              <Redirect to="/sign-in" />
+              <NotFoundPage />
             </Route>
           </Switch>
         </Router>
