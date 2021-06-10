@@ -9,6 +9,7 @@ import { ToolBar } from './components/ToolBar';
 import { Login } from './pages/Login';
 import { UserForm } from './pages/UserForm';
 import { VehicleForm } from './pages/VehicleForm';
+import { VehicleList } from './pages/VehicleList';
 import { BrandForm } from './pages/BrandForm';
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
         <Route path="/cadastro-veiculo">
           <VehicleForm />
         </Route>
+        <Route path="/lista-veiculos">
+          <VehicleList />
         <Route path="/cadastro-marca">
           <BrandForm />
         </Route>
