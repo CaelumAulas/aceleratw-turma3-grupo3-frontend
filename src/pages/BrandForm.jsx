@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
-    Grid,
-    Typography,
     TextField,
-    Button
+    Container
 } from '@material-ui/core';
+
+import { ButtonForm } from '../components/ButtonForm';
+import { MenuContext } from '../contexts/menu';
 
 export function BrandForm() {
     const [brandName, setBrandName] = useState();
+
+    const { handleChangeTitle } = useContext(MenuContext);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -15,44 +18,24 @@ export function BrandForm() {
         console.log(brandName);
     }
 
+    useEffect(() => {
+        handleChangeTitle("Cadastrar de Marca");
+    }, [handleChangeTitle])
+
     return (
-        <Grid
-            container
-            direction="column"
-            alignItems="center"
-            justify="center"
-        >
-            <Grid item xl={3}>
-                <Typography variant="h5" component="h1" align="center">
-                    Cadastro de Marca
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <TextField
-                        type="text"
-                        id="brand"
-                        label="Marca"
-                        variant="outlined"
-                        margin="normal"
-                        onChange={(event) => setBrandName(event.target.value)}
-                        fullWidth
-                    />
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                    >
-                        cadastrar
-                    </Button>
-                    <Button
-                        variant="contained"
-                        size="large"
-                        style={{ marginLeft: 10 }}
-                    >
-                        cancelar
-                    </Button>
-                </form>
-            </Grid>
-        </Grid>
+        <Container>
+            <form onSubmit={handleSubmit}>
+                <TextField
+                    type="text"
+                    id="brand"
+                    label="Marca"
+                    variant="outlined"
+                    margin="normal"
+                    onChange={(event) => setBrandName(event.target.value)}
+                    fullWidth
+                />
+                <ButtonForm />
+            </form>
+        </Container>
     )
 }

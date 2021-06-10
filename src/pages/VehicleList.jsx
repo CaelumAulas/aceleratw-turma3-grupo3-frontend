@@ -1,7 +1,5 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useContext } from "react";
 import {
-  Grid,
   Table,
   TableBody,
   TableCell,
@@ -11,8 +9,11 @@ import {
   Paper,
   Button,
   ButtonGroup,
-  Typography,
+  Container,
 } from "@material-ui/core";
+import { useHistory } from "react-router";
+
+import { MenuContext } from "../contexts/menu";
 
 function createData(marca, modelo, ano, valor) {
   return { marca, modelo, ano, valor };
@@ -30,63 +31,57 @@ const rows = [
 ];
 
 export function VehicleList() {
+  const { handleChangeTitle } = useContext(MenuContext);
+  const history = useHistory();
+
+  function handleOpenCreateVehicle() {
+    history.push("/cadastro-veiculo");
+  }
+
+  useEffect(() => {
+    handleChangeTitle("Veículos");
+  }, [handleChangeTitle]);
+
   return (
-    <Grid
-      className="lista-veiculos"
-      container
-      direction="column"
-      alignItems="center"
-      justify="center"
-    >
-      <Typography
-        variant="h5"
-        component="h1"
-        align="center"
-        style={{ marginTop: 60 }}
+    <Container>
+      <TableContainer
+        className="lista-veiculos__tabela"
+        component={Paper}
+        style={{ marginTop: 40 }}
       >
-        Veículos Disponíveis
-      </Typography>
-      <Grid item xs={6}>
-        <TableContainer
-          className="lista-veiculos__tabela"
-          component={Paper}
-          style={{ marginTop: 40 }}
-        >
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell align="left">Marca</TableCell>
-                <TableCell align="left">Modelo</TableCell>
-                <TableCell align="left">Ano</TableCell>
-                <TableCell align="left">Valor</TableCell>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">Marca</TableCell>
+              <TableCell align="left">Modelo</TableCell>
+              <TableCell align="left">Ano</TableCell>
+              <TableCell align="left">Valor</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.name}>
+                <TableCell align="left">{row.marca}</TableCell>
+                <TableCell align="left">{row.modelo}</TableCell>
+                <TableCell align="left">{row.ano}</TableCell>
+                <TableCell align="left">{row.valor}</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell align="left">{row.marca}</TableCell>
-                  <TableCell align="left">{row.modelo}</TableCell>
-                  <TableCell align="left">{row.ano}</TableCell>
-                  <TableCell align="left">{row.valor}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Grid>
-      <Grid item xs={3}>
-        <ButtonGroup
-          className="lista-veiculos__acoes"
-          variant="contained"
-          color="primary"
-          aria-label="contained primary button group"
-          style={{ marginTop: 20 }}
-        >
-          <Button>Excluir</Button>
-          <Button>Alterar</Button>
-          <Button>Incluir</Button>
-        </ButtonGroup>
-      </Grid>
-    </Grid>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <ButtonGroup
+        className="lista-veiculos__acoes"
+        variant="contained"
+        color="primary"
+        aria-label="contained primary button group"
+        style={{ marginTop: 20 }}
+      >
+        <Button>Excluir</Button>
+        <Button>Alterar</Button>
+        <Button onClick={handleOpenCreateVehicle}>Incluir</Button>
+      </ButtonGroup>
+    </Container>
   );
 }

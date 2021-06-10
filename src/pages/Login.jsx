@@ -1,35 +1,51 @@
-import React, { useState } from 'react';
-
+import React, { useContext, useEffect, useState } from 'react';
 import {
-    Grid,
-    Typography,
     TextField,
-    Button
+    Button,
+    Container,
+    Grid,
+    Typography
 } from '@material-ui/core';
+import { useHistory } from 'react-router';
+
+import { UserContext } from '../contexts/user';
+import { MenuContext } from '../contexts/menu';
 
 export function Login() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+
+    const { handleLogin } = useContext(UserContext);
+    const { handleChangeTitle } = useContext(MenuContext);
+    const history = useHistory();
 
     function handleSubmit(event) {
         event.preventDefault();
 
         console.log(username);
         console.log(password);
+
+        history.push('/dashboard');
+        handleLogin();
     }
 
-    return (
-        <Grid
-            container
-            direction="column"
-            alignItems="center"
-            justify="center"
-        >
+    useEffect(() => {
+        handleChangeTitle("Login");
+    }, [handleChangeTitle])
 
-            <Grid item xl={3}>
-                <Typography variant="h5" component="h1" align="center">
-                    Login
-                    </Typography>
+    return (
+        <Container>
+            <Grid
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                justify="center"
+                style={{ minHeight: '40vh' }}
+            >
+                <Typography variant="h5" component="h1" align="center" style={{ padding: 30 }}>
+                    Carango Bom
+                </Typography>
                 <form onSubmit={handleSubmit}>
                     <TextField
                         type="text"
@@ -54,12 +70,13 @@ export function Login() {
                         variant="contained"
                         color="primary"
                         size="large"
+                        style={{ marginTop: 20 }}
                         fullWidth
                     >
                         Entrar
-                        </Button>
+                </Button>
                 </form>
             </Grid>
-        </Grid>
+        </Container>
     )
 }
