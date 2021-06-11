@@ -15,6 +15,7 @@ import { UserForm } from './pages/UserForm';
 import { VehicleForm } from './pages/VehicleForm';
 import { VehicleList } from './pages/VehicleList';
 import { BrandForm } from './pages/BrandForm';
+import { BrandList } from './pages/BrandList';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 function App() {
@@ -50,6 +51,9 @@ function App() {
             </Route>
             <Route path="/cadastro-marca">
               <BrandForm />
+            </Route>
+            <Route path="/lista-marcas">
+              <BrandList />
             </Route>
             <Route path="/**">
               <NotFoundPage />
