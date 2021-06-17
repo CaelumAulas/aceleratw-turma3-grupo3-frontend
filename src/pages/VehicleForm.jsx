@@ -11,7 +11,7 @@ import { ButtonForm } from '../components/ButtonForm';
 
 import { MenuContext } from '../contexts/menu';
 import { UserContext } from '../contexts/user';
-import { fetchFormCreate, fetchGetById } from '../api/api';
+import { fetchFormCreate, fetchGetById, fetchFormUpdate } from '../api/api';
 
 export function VehicleForm() {
     const [brand, setBrand] = useState();
@@ -29,16 +29,28 @@ export function VehicleForm() {
         event.preventDefault();
 
         try {
-            await fetchFormCreate(
-                "/vehicle",
-                JSON.stringify({
-                    brand_id: brand,
-                    model: model,
-                    price: price,
-                    year: year
-                }),
-                token
-            );
+            if (id)
+                await fetchFormUpdate(
+                    `/vehicle/${id}`,
+                    JSON.stringify({
+                        brand_id: brand,
+                        model: model,
+                        price: price,
+                        year: year
+                    }),
+                    token
+                );
+            else
+                await fetchFormCreate(
+                    "/vehicle",
+                    JSON.stringify({
+                        brand_id: brand,
+                        model: model,
+                        price: price,
+                        year: year
+                    }),
+                    token
+                );
             history.push("/lista-veiculos");
         } catch {
             setHelperText("não foi possível salvar o novo veículo.")
@@ -57,14 +69,14 @@ export function VehicleForm() {
                         setPrice(vehicle.price);
                     }
                 } catch {
-                    console.log("deu erro");
+                    history.goBack();
                 }
             }
         }
 
         verifyEditForm();
         handleChangeTitle("Cadastro de Veículos");
-    }, [handleChangeTitle])
+    }, [handleChangeTitle, history, id, token])
 
     return (
         <Container maxWidth='sm'>

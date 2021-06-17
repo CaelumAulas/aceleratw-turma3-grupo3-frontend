@@ -30,10 +30,7 @@ export async function fetchFormCreate(url, data, token) {
         body: data,
     })
         .then((response) => {
-            console.log(response);
-            if (response.ok)
-                return;
-            else
+            if (!response.ok)
                 throw new Error();
         });
 }
@@ -49,12 +46,26 @@ export async function fetchAuth(data, setData) {
         .then((response) => {
             if (response.ok)
                 return response.json()
-            else
-                throw new Error();
+            throw new Error();
         })
         .then((data) => {
             setData(data.token);
         })
+}
+
+export async function fetchFormUpdate(url, data, token) {
+    await fetch(baseURL + url, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: data,
+    })
+        .then((response) => {
+            if (!response.ok)
+                throw new Error();
+        });
 }
 
 export async function fetchFormDelete(url, token) {
@@ -66,10 +77,7 @@ export async function fetchFormDelete(url, token) {
         }
     })
         .then((response) => {
-            console.log(response);
-            if (response.ok)
-                return;
-            else
+            if (!response.ok)
                 throw new Error();
         });
 }

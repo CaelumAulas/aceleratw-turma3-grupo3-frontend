@@ -9,7 +9,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { ButtonForm } from '../components/ButtonForm';
 import { MenuContext } from '../contexts/menu';
 import { UserContext } from '../contexts/user';
-import { fetchFormCreate, fetchGetById } from '../api/api';
+import { fetchFormCreate, fetchGetById, fetchFormUpdate } from '../api/api';
 
 export function BrandForm() {
     const [brandName, setBrandName] = useState();
@@ -23,7 +23,10 @@ export function BrandForm() {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
-            await fetchFormCreate("/brand", JSON.stringify({ name: brandName }), token);
+            if (id)
+                await fetchFormUpdate(`/brand/${id}`, JSON.stringify({ name: brandName }), token);
+            else
+                await fetchFormCreate("/brand", JSON.stringify({ name: brandName }), token);
             history.push("/lista-marcas");
         } catch {
             setHelperText("não foi possível salvar a nova marca.")
@@ -39,14 +42,14 @@ export function BrandForm() {
                         setBrandName(brand.name);
                     }
                 } catch {
-                    console.log("deu erro");
+                    history.goBack();
                 }
             }
         }
 
         verifyEditForm();
         handleChangeTitle("Cadastrar de Marca");
-    }, [handleChangeTitle])
+    }, [handleChangeTitle, history, id, token])
 
     return (
         <Container maxWidth='sm'>
