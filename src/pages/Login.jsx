@@ -44,6 +44,7 @@ export function Login() {
                     label="Usuário"
                     variant="outlined"
                     margin="normal"
+                    onClick={() => setHelperText(null)}
                     onChange={(event) => setUsername(event.target.value)}
                     fullWidth
                     required
@@ -54,6 +55,7 @@ export function Login() {
                     label="Senha"
                     variant="outlined"
                     margin="normal"
+                    onClick={() => setHelperText(null)}
                     onChange={(event) => setPassword(event.target.value)}
                     fullWidth
                     required
