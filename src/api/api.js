@@ -10,6 +10,16 @@ export async function fetchList(url, setData) {
         });
 }
 
+export async function fetchGetById(url, token) {
+    return await fetch(baseURL + url, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    }).then((response) => response.json());
+}
+
 export async function fetchFormCreate(url, data, token) {
     await fetch(baseURL + url, {
         method: "POST",

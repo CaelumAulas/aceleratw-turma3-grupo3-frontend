@@ -35,7 +35,7 @@ export function BrandList() {
   }
 
   useEffect(() => {
-    fetchList("/brand", setBrands);
+    // fetchList("/brand", setBrands);
     handleChangeTitle("Marcas");
   }, [handleChangeTitle]);
 

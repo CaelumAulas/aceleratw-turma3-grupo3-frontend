@@ -4,14 +4,14 @@ import {
     TextField,
     FormHelperText
 } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { BrandSelect } from '../components/BrandSelect';
 import { ButtonForm } from '../components/ButtonForm';
 
 import { MenuContext } from '../contexts/menu';
 import { UserContext } from '../contexts/user';
-import { fetchFormCreate } from '../api/api';
+import { fetchFormCreate, fetchGetById } from '../api/api';
 
 export function VehicleForm() {
     const [brand, setBrand] = useState();
@@ -23,6 +23,7 @@ export function VehicleForm() {
     const { handleChangeTitle } = useContext(MenuContext);
     const { token } = useContext(UserContext);
     const history = useHistory();
+    const { id } = useParams();
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -45,6 +46,23 @@ export function VehicleForm() {
     }
 
     useEffect(() => {
+        async function verifyEditForm() {
+            if (id) {
+                try {
+                    const vehicle = await fetchGetById(`/vehicle/${id}`, token);
+                    if (vehicle) {
+                        setBrand(vehicle.brand.id);
+                        setModel(vehicle.model);
+                        setYear(vehicle.year);
+                        setPrice(vehicle.price);
+                    }
+                } catch {
+                    console.log("deu erro");
+                }
+            }
+        }
+
+        verifyEditForm();
         handleChangeTitle("Cadastro de Veículos");
     }, [handleChangeTitle])
 
@@ -58,6 +76,7 @@ export function VehicleForm() {
                     label="Modelo"
                     variant="outlined"
                     margin="normal"
+                    value={model}
                     onChange={(event) => setModel(event.target.value)}
                     required
                     fullWidth
@@ -68,6 +87,7 @@ export function VehicleForm() {
                     label="Ano"
                     variant="outlined"
                     margin="normal"
+                    value={year}
                     onChange={(event) => setYear(event.target.value)}
                     required
                     fullWidth
@@ -78,6 +98,7 @@ export function VehicleForm() {
                     label="Valor"
                     variant="outlined"
                     margin="normal"
+                    value={price}
                     onChange={(event) => setPrice(event.target.value)}
                     required
                     fullWidth

@@ -65,7 +65,7 @@ export function VehicleList() {
           <TableBody>
             {vehicles.map((row) => (
               <TableRow key={row.id}>
-                <TableCell align="left">{row.brand}</TableCell>
+                <TableCell align="left">{row.brand.name}</TableCell>
                 <TableCell align="left">{row.model}</TableCell>
                 <TableCell align="left">{row.year}</TableCell>
                 <TableCell align="left">{row.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</TableCell>

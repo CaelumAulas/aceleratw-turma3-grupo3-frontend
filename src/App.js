@@ -50,10 +50,16 @@ function App() {
             <Route path="/cadastro-veiculo">
               <VehicleForm />
             </Route>
+            <Route path="/editar-veiculo/:id">
+              <VehicleForm />
+            </Route>
             <Route path="/lista-veiculos">
               <VehicleList />
             </Route>
             <Route path="/cadastro-marca">
+              <BrandForm />
+            </Route>
+            <Route path="/editar-marca/:id">
               <BrandForm />
             </Route>
             <Route path="/lista-marcas">

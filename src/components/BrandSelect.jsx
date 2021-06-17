@@ -9,10 +9,10 @@ import {
 import { fetchList } from '../api/api';
 
 export function BrandSelect({ value, changeValue }) {
-    const [brands, setBrands] = useState([]);
+    const [brands, setBrands] = useState([{ id: 2, name: "marca 2" }]);
 
     useEffect(() => {
-        fetchList("/brand", setBrands);
+        // fetchList("/brand", setBrands);
     }, [])
 
     return (

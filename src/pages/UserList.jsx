@@ -64,7 +64,6 @@ export function UserList() {
               <TableRow key={row.id}>
                 <TableCell align="left">{row.user}</TableCell>
                 <TableCell align="right">
-                  <Button size="small" color="default" onClick={() => history.push(`/editar-usuario/${row.id}`)}>Alterar</Button>
                   <Button size="small" color="secondary" onClick={() => handleDeleteUser(row.id)}>Excluir</Button>
                 </TableCell>
               </TableRow>
