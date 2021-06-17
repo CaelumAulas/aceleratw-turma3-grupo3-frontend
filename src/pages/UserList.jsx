@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import {
   Table,
   TableBody,
@@ -14,23 +14,10 @@ import {
 import { useHistory } from "react-router";
 
 import { MenuContext } from "../contexts/menu";
-
-function createData(username) {
-  return { username };
-}
-
-const rows = [
-  createData("admin"),
-  createData("leticia"),
-  createData("david"),
-  createData("joao_matheus"),
-  createData("william"),
-  createData("camila"),
-  createData("kelly"),
-  createData("lucas"),
-];
+import { fetchList } from '../api/api';
 
 export function UserList() {
+  const [users, setUsers] = useState([]);
   const { handleChangeTitle } = useContext(MenuContext);
   const history = useHistory();
 
@@ -39,6 +26,11 @@ export function UserList() {
   }
 
   useEffect(() => {
+    async function getUsers() {
+      await fetchList("/users", setUsers);
+    }
+
+    getUsers();
     handleChangeTitle("Usuários");
   }, [handleChangeTitle]);
 
@@ -56,9 +48,9 @@ export function UserList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell align="left">{row.username}</TableCell>
+            {users.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell align="left">{row.user}</TableCell>
               </TableRow>
             ))}
           </TableBody>

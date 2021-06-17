@@ -1,29 +1,47 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {
     Container,
-    TextField
+    TextField,
+    FormHelperText
 } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 import { BrandSelect } from '../components/BrandSelect';
 import { ButtonForm } from '../components/ButtonForm';
 
 import { MenuContext } from '../contexts/menu';
+import { UserContext } from '../contexts/user';
+import { fetchFormCreate } from '../api/api';
 
 export function VehicleForm() {
     const [brand, setBrand] = useState();
     const [model, setModel] = useState();
     const [year, setYear] = useState();
     const [price, setPrice] = useState();
+    const [helperText, setHelperText] = useState();
 
     const { handleChangeTitle } = useContext(MenuContext);
+    const { token } = useContext(UserContext);
+    const history = useHistory();
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
 
-        console.log(brand);
-        console.log(model);
-        console.log(year);
-        console.log(price);
+        try {
+            await fetchFormCreate(
+                "/vehicle",
+                JSON.stringify({
+                    brand_id: brand,
+                    model: model,
+                    price: price,
+                    year: year
+                }),
+                token
+            );
+            history.push("/lista-veiculos");
+        } catch {
+            setHelperText("não foi possível salvar o novo veículo.")
+        }
     }
 
     useEffect(() => {
@@ -64,6 +82,7 @@ export function VehicleForm() {
                     required
                     fullWidth
                 />
+                <FormHelperText style={{ color: 'red' }}>{helperText}</FormHelperText>
                 <ButtonForm />
             </form>
         </Container>

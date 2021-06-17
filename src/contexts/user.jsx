@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { fetchAuth } from '../api/api';
 
 export const UserContext = createContext({});
 
@@ -7,26 +8,15 @@ export function UserProvider({ children }) {
     const [token, setToken] = useState();
 
     async function handleLogin(email, password) {
-        await fetch(`http://localhost:8080/auth`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
+        try {
+            await fetchAuth(JSON.stringify({
                 email: email,
                 password: password,
-            }),
-        })
-            .then((response) => {
-                if (response.ok)
-                    return response.json()
-                else
-                    throw new Error();
-            })
-            .then((data) => {
-                setToken(data.token);
-                setIsLogged(true);
-            })
+            }), setToken);
+            setIsLogged(true);
+        } catch {
+            throw new Error();
+        }
     }
 
     function handleLogout() {

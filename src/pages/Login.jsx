@@ -28,7 +28,6 @@ export function Login() {
         } catch (err) {
             return setHelperText('usuário não encontrado.');
         }
-
     }
 
     useEffect(() => {

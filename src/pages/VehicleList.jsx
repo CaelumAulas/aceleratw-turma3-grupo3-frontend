@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Table,
   TableBody,
@@ -14,23 +14,10 @@ import {
 import { useHistory } from "react-router";
 
 import { MenuContext } from "../contexts/menu";
-
-function createData(marca, modelo, ano, valor) {
-  return { marca, modelo, ano, valor };
-}
-
-const rows = [
-  createData("FORD", "KA", 2020, 15000),
-  createData("GM", "CORSA", 2015, 7000),
-  createData("RENAULT", "SANDERO", 2017, 30000),
-  createData("VOLKSWAGEN", "GOL", 2019, 19000),
-  createData("FIAT", "UNO", 2017, 20000),
-  createData("RENAULT", "KWID", 2020, 22000),
-  createData("FIAT", "MOBI", 2018, 18000),
-  createData("VOLKSWAGEN", "POLO", 2016, 14000),
-];
+import { fetchList } from '../api/api';
 
 export function VehicleList() {
+  const [vehicles, setVehicles] = useState([]);
   const { handleChangeTitle } = useContext(MenuContext);
   const history = useHistory();
 
@@ -39,6 +26,11 @@ export function VehicleList() {
   }
 
   useEffect(() => {
+    async function getVehicles() {
+      await fetchList("/vehicle", setVehicles);
+    }
+
+    getVehicles();
     handleChangeTitle("Veículos");
   }, [handleChangeTitle]);
 
@@ -59,12 +51,12 @@ export function VehicleList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell align="left">{row.marca}</TableCell>
-                <TableCell align="left">{row.modelo}</TableCell>
-                <TableCell align="left">{row.ano}</TableCell>
-                <TableCell align="left">{row.valor}</TableCell>
+            {vehicles.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell align="left">{row.brand}</TableCell>
+                <TableCell align="left">{row.model}</TableCell>
+                <TableCell align="left">{row.year}</TableCell>
+                <TableCell align="left">{row.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</TableCell>
               </TableRow>
             ))}
           </TableBody>

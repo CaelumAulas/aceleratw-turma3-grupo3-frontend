@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import {
   Table,
   TableBody,
@@ -14,7 +14,7 @@ import {
 import { useHistory } from "react-router";
 
 import { MenuContext } from "../contexts/menu";
-import { useState } from "react";
+import { fetchList } from "../api/api";
 
 export function BrandList() {
   const [brands, setBrands] = useState([]);
@@ -26,17 +26,7 @@ export function BrandList() {
   }
 
   useEffect(() => {
-    async function getBrands() {
-      await fetch(`http://localhost:8080/brand`, {
-        method: "GET"
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setBrands(data.content);
-        })
-    }
-
-    getBrands();
+    fetchList("/brand", setBrands);
     handleChangeTitle("Marcas");
   }, [handleChangeTitle]);
 
