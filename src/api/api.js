@@ -46,3 +46,20 @@ export async function fetchAuth(data, setData) {
             setData(data.token);
         })
 }
+
+export async function fetchFormDelete(url, token) {
+    await fetch(baseURL + url, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
+        .then((response) => {
+            console.log(response);
+            if (response.ok)
+                return;
+            else
+                throw new Error();
+        });
+}
