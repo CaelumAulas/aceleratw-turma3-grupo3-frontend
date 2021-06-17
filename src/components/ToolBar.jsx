@@ -30,10 +30,10 @@ export function ToolBar() {
                     <Typography variant="h6">
                         Carango Bom
                     </Typography>
-                    <Typography variant="h7" style={{ marginInline: 30 }}>
+                    <Typography variant="subtitle2" style={{ marginInline: 30 }}>
                         &gt;
                     </Typography>
-                    <Typography variant="h8">
+                    <Typography variant="subtitle2">
                         {title}
                     </Typography>
                 </div>

@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import {
     TextField,
     Button,
-    Container
+    Container,
+    FormHelperText
 } from '@material-ui/core';
 import { useHistory } from 'react-router';
 
@@ -12,19 +13,22 @@ import { MenuContext } from '../contexts/menu';
 export function Login() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    const [helperText, setHelperText] = useState();
 
     const { handleLogin } = useContext(UserContext);
     const { handleChangeTitle } = useContext(MenuContext);
+
     const history = useHistory();
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
+        try {
+            await handleLogin(username, password);
+            history.push('/dashboard');
+        } catch (err) {
+            return setHelperText('usuário não encontrado.');
+        }
 
-        console.log(username);
-        console.log(password);
-
-        history.push('/dashboard');
-        handleLogin();
     }
 
     useEffect(() => {
@@ -54,6 +58,7 @@ export function Login() {
                     fullWidth
                     required
                 />
+                <FormHelperText style={{ color: 'red' }}>{helperText}</FormHelperText>
                 <Button
                     type="submit"
                     variant="contained"

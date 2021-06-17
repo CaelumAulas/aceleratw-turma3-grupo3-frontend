@@ -14,23 +14,10 @@ import {
 import { useHistory } from "react-router";
 
 import { MenuContext } from "../contexts/menu";
-
-function createData(marca) {
-  return { marca };
-}
-
-const rows = [
-  createData("FORD"),
-  createData("GM"),
-  createData("RENAULT"),
-  createData("VOLKSWAGEN"),
-  createData("FIAT"),
-  createData("TOYOTA"),
-  createData("HYUNDAI"),
-  createData("CITRÖEN"),
-];
+import { useState } from "react";
 
 export function BrandList() {
+  const [brands, setBrands] = useState([]);
   const { handleChangeTitle } = useContext(MenuContext);
   const history = useHistory();
 
@@ -39,6 +26,17 @@ export function BrandList() {
   }
 
   useEffect(() => {
+    async function getBrands() {
+      await fetch(`http://localhost:8080/brand`, {
+        method: "GET"
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setBrands(data.content);
+        })
+    }
+
+    getBrands();
     handleChangeTitle("Marcas");
   }, [handleChangeTitle]);
 
@@ -56,9 +54,9 @@ export function BrandList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell align="left">{row.marca}</TableCell>
+            {brands.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell align="left">{row.name}</TableCell>
               </TableRow>
             ))}
           </TableBody>

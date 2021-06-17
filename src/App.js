@@ -12,7 +12,7 @@ import { ToolBar } from './components/ToolBar';
 import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
 import { UserForm } from './pages/UserForm';
-import { UserList } from './pages/UserList';
+// import { UserList } from './pages/UserList';
 import { VehicleForm } from './pages/VehicleForm';
 import { VehicleList } from './pages/VehicleList';
 import { BrandForm } from './pages/BrandForm';
@@ -44,9 +44,9 @@ function App() {
             <Route path="/cadastro-usuario">
               <UserForm />
             </Route>
-            <Route path="/lista-usuarios">
+            {/* <Route path="/lista-usuarios">
               <UserList />
-            </Route>
+            </Route> */}
             <Route path="/cadastro-veiculo">
               <VehicleForm />
             </Route>

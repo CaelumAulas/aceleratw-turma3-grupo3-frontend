@@ -4,9 +4,29 @@ export const UserContext = createContext({});
 
 export function UserProvider({ children }) {
     const [isLogged, setIsLogged] = useState(false);
+    const [token, setToken] = useState();
 
-    function handleLogin() {
-        setIsLogged(true);
+    async function handleLogin(email, password) {
+        await fetch(`http://localhost:8080/auth`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+        })
+            .then((response) => {
+                if (response.ok)
+                    return response.json()
+                else
+                    throw new Error();
+            })
+            .then((data) => {
+                setToken(data.token);
+                setIsLogged(true);
+            })
     }
 
     function handleLogout() {
@@ -16,6 +36,7 @@ export function UserProvider({ children }) {
     return (
         <UserContext.Provider value={{
             userIsLogged: isLogged,
+            token,
             handleLogin,
             handleLogout
         }}>
