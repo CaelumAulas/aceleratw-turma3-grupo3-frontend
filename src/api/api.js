@@ -20,6 +20,20 @@ export async function fetchGetById(url, token) {
     }).then((response) => response.json());
 }
 
+export async function fetchDashboard(url, setData, token) {
+    return await fetch(baseURL + url, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            setData(data);
+        });;
+}
+
 export async function fetchFormCreate(url, data, token) {
     await fetch(baseURL + url, {
         method: "POST",

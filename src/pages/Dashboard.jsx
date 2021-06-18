@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,6 +9,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import { MenuContext } from "../contexts/menu";
+import { UserContext } from "../contexts/user";
+
+import { fetchDashboard } from "../api/api";
 
 const useStyles = makeStyles({
   root: {
@@ -32,40 +35,29 @@ const useStyles = makeStyles({
 });
 
 export function Dashboard() {
+  const [dashboardData, setDashboardData] = useState([]);
+
   const { handleChangeTitle } = useContext(MenuContext);
+  const { token } = useContext(UserContext);
   const classes = useStyles();
 
   useEffect(() => {
+    fetchDashboard("/dashboard", setDashboardData, token);
     handleChangeTitle("Dashboard");
-  }, [handleChangeTitle]);
-
-  function createData(marca, modelo, ano, valor) {
-    return { marca, modelo, ano, valor };
-  }
-
-  const rows = [
-    createData("FORD", "KA", 2020, 15000),
-    createData("GM", "CORSA", 2015, 7000),
-    createData("RENAULT", "SANDERO", 2017, 30000),
-    createData("VOLKSWAGEN", "GOL", 2019, 19000),
-    createData("FIAT", "UNO", 2017, 20000),
-    createData("RENAULT", "KWID", 2020, 22000),
-    createData("FIAT", "MOBI", 2018, 18000),
-    createData("VOLKSWAGEN", "POLO", 2016, 14000),
-  ];
+  }, [handleChangeTitle, token]);
 
   return (
     <Container>
       <GridList cellHeight={160} className={classes.gridList} cols={3}>
-        {rows.map((row) => (
-          <GridListTile key={row.marca} cols={row.cols || 1}>
+        {dashboardData.map((row) => (
+          <GridListTile key={row.brandName} cols={row.cols || 1}>
             <Card className={classes.root} variant="outlined">
               <CardContent>
                 <Typography className={classes.title} variant="h6" component="h6">
-                  {row.marca}
+                  {row.brandName}
                 </Typography>
-                <Typography className={classes.p}>{row.ano} veículos disponíveis</Typography>
-                <Typography className={classes.p}>R$ {row.valor}</Typography>
+                <Typography className={classes.p}>{row.totalVehicles} veículos disponíveis</Typography>
+                <Typography className={classes.p}>R$ {row.amount}</Typography>
               </CardContent>
             </Card>
           </GridListTile>
