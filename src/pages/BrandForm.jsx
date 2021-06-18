@@ -12,8 +12,8 @@ import { UserContext } from '../contexts/user';
 import { fetchFormCreate, fetchGetById, fetchFormUpdate } from '../api/api';
 
 export function BrandForm() {
-    const [brandName, setBrandName] = useState();
-    const [helperText, setHelperText] = useState();
+    const [brandName, setBrandName] = useState('');
+    const [helperText, setHelperText] = useState('');
 
     const { handleChangeTitle } = useContext(MenuContext);
     const { token } = useContext(UserContext);
@@ -60,6 +60,7 @@ export function BrandForm() {
                     label="Marca"
                     variant="outlined"
                     margin="normal"
+                    value={brandName}
                     onClick={() => setHelperText(null)}
                     onChange={(event) => setBrandName(event.target.value)}
                     fullWidth
