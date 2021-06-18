@@ -1,12 +1,22 @@
 import React, { createContext, useState } from 'react';
+import { fetchAuth } from '../api/api';
 
 export const UserContext = createContext({});
 
 export function UserProvider({ children }) {
     const [isLogged, setIsLogged] = useState(false);
+    const [token, setToken] = useState();
 
-    function handleLogin() {
-        setIsLogged(true);
+    async function handleLogin(email, password) {
+        try {
+            await fetchAuth(JSON.stringify({
+                email: email,
+                password: password,
+            }), setToken);
+            setIsLogged(true);
+        } catch {
+            throw new Error();
+        }
     }
 
     function handleLogout() {
@@ -16,6 +26,7 @@ export function UserProvider({ children }) {
     return (
         <UserContext.Provider value={{
             userIsLogged: isLogged,
+            token,
             handleLogin,
             handleLogout
         }}>

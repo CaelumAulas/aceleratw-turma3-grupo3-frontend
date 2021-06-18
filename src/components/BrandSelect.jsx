@@ -6,17 +6,13 @@ import {
     Select
 } from '@material-ui/core';
 
+import { fetchList } from '../api/api';
+
 export function BrandSelect({ value, changeValue }) {
     const [brands, setBrands] = useState([]);
 
     useEffect(() => {
-        const brandsMock = [
-            { id: 1, name: "brand 1" },
-            { id: 2, name: "brand 2" },
-            { id: 3, name: "brand 3" }
-        ];
-
-        setBrands(brandsMock);
+        fetchList("/brand", setBrands);
     }, [])
 
     return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Table,
   TableBody,
@@ -8,42 +8,45 @@ import {
   TableRow,
   Paper,
   Button,
-  ButtonGroup,
   Container,
 } from "@material-ui/core";
 import { useHistory } from "react-router";
+import { Alert } from "@material-ui/lab";
 
 import { MenuContext } from "../contexts/menu";
+import { UserContext } from "../contexts/user";
 
-function createData(marca, modelo, ano, valor) {
-  return { marca, modelo, ano, valor };
-}
-
-const rows = [
-  createData("FORD", "KA", 2020, 15000),
-  createData("GM", "CORSA", 2015, 7000),
-  createData("RENAULT", "SANDERO", 2017, 30000),
-  createData("VOLKSWAGEN", "GOL", 2019, 19000),
-  createData("FIAT", "UNO", 2017, 20000),
-  createData("RENAULT", "KWID", 2020, 22000),
-  createData("FIAT", "MOBI", 2018, 18000),
-  createData("VOLKSWAGEN", "POLO", 2016, 14000),
-];
+import { fetchFormDelete, fetchList } from '../api/api';
 
 export function VehicleList() {
+  const [vehicles, setVehicles] = useState([]);
+  const [showError, setShowError] = useState(false);
+
   const { handleChangeTitle } = useContext(MenuContext);
+  const { token } = useContext(UserContext);
   const history = useHistory();
 
-  function handleOpenCreateVehicle() {
-    history.push("/cadastro-veiculo");
+  async function handleDeleteVehicle(vehicleId) {
+    try {
+      await fetchFormDelete(`/vehicle/${vehicleId}`, token);
+      setVehicles(oldValue => oldValue.filter(item => item.id !== vehicleId));
+    } catch {
+      setShowError(true);
+    }
   }
 
   useEffect(() => {
+    async function getVehicles() {
+      await fetchList("/vehicle", setVehicles);
+    }
+
+    getVehicles();
     handleChangeTitle("Veículos");
   }, [handleChangeTitle]);
 
   return (
     <Container>
+      {showError && <Alert severity="error">não foi possível remover este veículo</Alert>}
       <TableContainer
         className="lista-veiculos__tabela"
         component={Paper}
@@ -56,32 +59,27 @@ export function VehicleList() {
               <TableCell align="left">Modelo</TableCell>
               <TableCell align="left">Ano</TableCell>
               <TableCell align="left">Valor</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell align="left">{row.marca}</TableCell>
-                <TableCell align="left">{row.modelo}</TableCell>
-                <TableCell align="left">{row.ano}</TableCell>
-                <TableCell align="left">{row.valor}</TableCell>
+            {vehicles.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell align="left">{row.brand.name}</TableCell>
+                <TableCell align="left">{row.model}</TableCell>
+                <TableCell align="left">{row.year}</TableCell>
+                <TableCell align="left">{row.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</TableCell>
+                <TableCell align="right">
+                  <Button size="small" color="default" onClick={() => history.push(`/editar-veiculo/${row.id}`)}>Alterar</Button>
+                  <Button size="small" color="secondary" onClick={() => handleDeleteVehicle(row.id)}>Excluir</Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
 
-      <ButtonGroup
-        className="lista-veiculos__acoes"
-        variant="contained"
-        color="primary"
-        aria-label="contained primary button group"
-        style={{ marginTop: 20 }}
-      >
-        <Button>Excluir</Button>
-        <Button>Alterar</Button>
-        <Button onClick={handleOpenCreateVehicle}>Incluir</Button>
-      </ButtonGroup>
+      <Button variant="contained" color="primary" style={{ marginTop: 20 }} onClick={() => history.push("/cadastro-veiculo")}>Incluir</Button>
     </Container>
   );
 }

@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
-
 import {
     Container,
     TextField,
     FormHelperText
 } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+
 import { ButtonForm } from '../components/ButtonForm';
+
 import { MenuContext } from '../contexts/menu';
+import { UserContext } from '../contexts/user';
+
+import { fetchFormCreate } from '../api/api';
 
 export function UserForm() {
     const [username, setUsername] = useState();
@@ -15,17 +20,22 @@ export function UserForm() {
     const [helperText, setHelperText] = useState();
 
     const { handleChangeTitle } = useContext(MenuContext);
+    const { token } = useContext(UserContext);
+    const history = useHistory();
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
 
         if (password !== confirmPassword) {
             setHelperText('senhas não conferem.');
         }
 
-        console.log(username);
-        console.log(password);
-        console.log(confirmPassword);
+        try {
+            await fetchFormCreate("/users", JSON.stringify({ user: username, password: password }), token);
+            history.push("/lista-usuarios");
+        } catch {
+            setHelperText("não foi possível salvar o novo usuário.")
+        }
     }
 
     useEffect(() => {
