@@ -14,11 +14,11 @@ import { UserContext } from '../contexts/user';
 import { fetchFormCreate, fetchGetById, fetchFormUpdate } from '../api/api';
 
 export function VehicleForm() {
-    const [brand, setBrand] = useState();
-    const [model, setModel] = useState();
-    const [year, setYear] = useState();
-    const [price, setPrice] = useState();
-    const [helperText, setHelperText] = useState();
+    const [brand, setBrand] = useState(0);
+    const [model, setModel] = useState('');
+    const [year, setYear] = useState('');
+    const [price, setPrice] = useState('');
+    const [helperText, setHelperText] = useState('');
 
     const { handleChangeTitle } = useContext(MenuContext);
     const { token } = useContext(UserContext);
