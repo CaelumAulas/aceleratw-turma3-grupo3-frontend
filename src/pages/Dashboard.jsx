@@ -46,6 +46,10 @@ export function Dashboard() {
     handleChangeTitle("Dashboard");
   }, [handleChangeTitle, token]);
 
+  const label = (row) => {
+    return (row.totalVehicles > 1) ? ' veículos disponíveis' : ' veículo disponível'
+  }
+
   return (
     <Container>
       <GridList cellHeight={160} className={classes.gridList} cols={3}>
@@ -56,7 +60,7 @@ export function Dashboard() {
                 <Typography className={classes.title} variant="h6" component="h6">
                   {row.brandName}
                 </Typography>
-                <Typography className={classes.p}>{row.totalVehicles} veículos disponíveis</Typography>
+                <Typography className={classes.p}>{row.totalVehicles} {label(row)}</Typography>
                 <Typography className={classes.p}>R$ {row.amount}</Typography>
               </CardContent>
             </Card>
