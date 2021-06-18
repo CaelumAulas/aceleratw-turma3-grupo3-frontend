@@ -4,6 +4,9 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+import './App.css';
 
 import { UserProvider } from './contexts/user';
 import { MenuProvider } from './contexts/menu';
@@ -20,8 +23,22 @@ import { BrandForm } from './pages/BrandForm';
 import { BrandList } from './pages/BrandList';
 import { NotFoundPage } from './pages/NotFoundPage';
 
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      "Nunito",
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+    ].join(","),
+  },
+});
+
+
 function App() {
   return (
+   <ThemeProvider theme={theme}>
     <UserProvider>
       <MenuProvider>
         <Router>
@@ -42,6 +59,7 @@ function App() {
         </Router>
       </MenuProvider>
     </UserProvider>
+   </ThemeProvider>
   );
 }
 
